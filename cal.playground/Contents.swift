@@ -1,24 +1,20 @@
+// 프로토콜
 protocol AbstractOperation {
     func execute(_ a: Double, _ b: Double) -> Double
 }
 
 
+// 사칙연산 클래스
 class AddOperation: AbstractOperation {
-    func execute(_ a: Double, _ b: Double) -> Double {
-        return a + b
-    }
+    func execute(_ a: Double, _ b: Double) -> Double { return a + b }
 }
 
 class SubstractOperation: AbstractOperation {
-    func execute(_ a: Double, _ b: Double) -> Double {
-        return a - b
-    }
+    func execute(_ a: Double, _ b: Double) -> Double { return a - b }
 }
 
 class MultiplyOperation: AbstractOperation {
-    func execute(_ a: Double, _ b: Double) -> Double {
-        return a * b
-    }
+    func execute(_ a: Double, _ b: Double) -> Double { return a * b }
 }
 
 class DivideOperation: AbstractOperation {
@@ -41,56 +37,44 @@ class RemainOperation: AbstractOperation {
     }
 }
 
+
+// Calculator 클래스
 class Calculator {
     
-    let addOp = AddOperation()
-    let minusOp = SubstractOperation()
-    let mulOp = MultiplyOperation()
-    let divOp = DivideOperation()
-    let remOp = RemainOperation()
+    private var op: AbstractOperation = AddOperation()
     
-    
-    func add(_ a: Double, _ b: Double) -> Double {
-        return addOp.execute(a,b)
+    func changeOp(_ op: AbstractOperation) {
+        self.op = op
     }
     
-    func minus(_ a: Double, _ b: Double) -> Double {
-        return minusOp.execute(a,b)
+    func calculate(_ a: Double, _ b: Double) -> Double {
+        op.execute(a, b)
     }
     
-    func multiply(_ a: Double, _ b: Double) -> Double {
-        return mulOp.execute(a,b)
-    }
-    
-    func divide(_ a: Double, _ b: Double) -> Double? {
-        if b == 0 {
-            print("0으로 나눠서 nil을 출력합니다.")
-            return nil
-        }
-        return divOp.execute(a,b)
-    }
-    
-    func remain(_ a: Double, _ b: Double) -> Double? {
-        if b == 0 {
-            print("0으로 나눠서 nil을 출력합니다.")
-            return nil
-        }
-        return remOp.execute(a,b)
-    }
     
 }
 
 
+// 테스트
 let calculator = Calculator()
-
 let a: Double = 0
 let b: Double = 0
 
-print("\(a) + \(b) = \(calculator.add(a, b))")
-print("\(a) - \(b) = \(calculator.minus(a, b))")
-print("\(a) × \(b) = \(calculator.multiply(a, b))")
-print("\(a) / \(b) = \(calculator.divide(a, b) ?? 0)")
-print("\(a) % \(b) = \(calculator.remain(a, b) ?? 0)")
+
+calculator.changeOp(AddOperation())
+print("\(a) + \(b) = \(calculator.calculate(a, b))")
+
+calculator.changeOp(SubstractOperation())
+print("\(a) - \(b) = \(calculator.calculate(a, b))")
+
+calculator.changeOp(MultiplyOperation())
+print("\(a) × \(b) = \(calculator.calculate(a, b))")
+
+calculator.changeOp(DivideOperation())
+print("\(a) / \(b) = \(calculator.calculate(a, b))")
+
+calculator.changeOp(RemainOperation())
+print("\(a) % \(b) = \(calculator.calculate(a, b))")
 
 
 
