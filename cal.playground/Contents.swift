@@ -1,34 +1,41 @@
-class AddOperation {
+protocol AbstractOperation {
+    func execute(_ a: Double, _ b: Double) -> Double
+}
+
+
+class AddOperation: AbstractOperation {
     func execute(_ a: Double, _ b: Double) -> Double {
         return a + b
     }
 }
 
-class SubstractOperation {
+class SubstractOperation: AbstractOperation {
     func execute(_ a: Double, _ b: Double) -> Double {
         return a - b
     }
 }
 
-class MultiplyOperation {
+class MultiplyOperation: AbstractOperation {
     func execute(_ a: Double, _ b: Double) -> Double {
         return a * b
     }
 }
 
-class DivideOperation {
-    func execute(_ a: Double, _ b: Double) -> Double? {
+class DivideOperation: AbstractOperation {
+    func execute(_ a: Double, _ b: Double) -> Double {
         if b == 0 {
-            return nil
+            print("0으로 나눴기 때문에 기본값 0을 반환합니다.")
+            return 0
         }
         return a / b
     }
 }
 
-class RemainOperation {
-    func execute(_ a: Double, _ b: Double) -> Double? {
+class RemainOperation: AbstractOperation {
+    func execute(_ a: Double, _ b: Double) -> Double {
         if b == 0 {
-            return nil
+            print("0으로 나눴기 때문에 기본값 0을 반환합니다.")
+            return 0
         }
         return a.truncatingRemainder(dividingBy: b)
     }
@@ -84,9 +91,6 @@ print("\(a) - \(b) = \(calculator.minus(a, b))")
 print("\(a) × \(b) = \(calculator.multiply(a, b))")
 print("\(a) / \(b) = \(calculator.divide(a, b) ?? 0)")
 print("\(a) % \(b) = \(calculator.remain(a, b) ?? 0)")
-
-
-
 
 
 
